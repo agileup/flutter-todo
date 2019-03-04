@@ -29,6 +29,11 @@ class _MyHomePageState extends State<MyHomePage> {
   var cardIndex = 0;
 
   var currentColor = Color.fromRGBO(231, 129, 109, 1.0);
+  var cardsList = [
+    Icons.account_circle,
+    Icons.work,
+    Icons.home,
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -116,11 +121,52 @@ class _MyHomePageState extends State<MyHomePage> {
                                   children: <Widget>[
                                     Padding(
                                       padding: EdgeInsets.all(8.0),
-                                      child: Row(),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Icon(
+                                            cardsList[position],
+                                            color: appColors[position],
+                                          ),
+                                          Icon(
+                                            Icons.more_vert,
+                                            color: Colors.grey,
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                     Padding(
                                       padding: EdgeInsets.all(8.0),
-                                      child: Row(),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 8.0, vertical: 4.0),
+                                            child: Text(
+                                              '0 Tasks',
+                                              style:
+                                                  TextStyle(color: Colors.grey),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 8.0, vertical: 4.0),
+                                            child: Text(
+                                              'title',
+                                              style: TextStyle(fontSize: 28.0),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.all(8.0),
+                                            child: LinearProgressIndicator(
+                                              value: 0.7,
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),
