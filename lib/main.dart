@@ -35,6 +35,14 @@ class _MyHomePageState extends State<MyHomePage> {
     Icons.home,
   ];
 
+  ScrollController scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController = new ScrollController();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: 3,
-//                      controller: scrollController,
+                      controller: scrollController,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, position) {
                         return GestureDetector(
@@ -176,6 +184,19 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),
                             ),
                           ),
+                          onHorizontalDragEnd: (details) {
+                            if (details.velocity.pixelsPerSecond.dx > 0) {
+                              if (cardIndex > 0) cardIndex--;
+                            } else {
+                              if (cardIndex < 2) cardIndex++;
+                            }
+
+                            setState(() {
+                              scrollController.animateTo((cardIndex) * 256.0,
+                                  duration: Duration(milliseconds: 500),
+                                  curve: Curves.fastOutSlowIn);
+                            });
+                          },
                         );
                       }),
                 )
