@@ -20,7 +20,7 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   var appColors = [
     Color.fromRGBO(231, 129, 109, 1.0),
     Color.fromRGBO(99, 138, 223, 1.0),
@@ -37,6 +37,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   ScrollController scrollController;
 
+  AnimationController animationController;
+  ColorTween colorTween;
+  CurvedAnimation curvedAnimation;
+
   @override
   void initState() {
     super.initState();
@@ -52,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
           'TODO',
           style: TextStyle(fontSize: 16.0),
         ),
-        backgroundColor: appColors[cardIndex],
+        backgroundColor: currentColor,
         centerTitle: true,
         actions: <Widget>[
           Padding(
@@ -185,10 +189,33 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                           ),
                           onHorizontalDragEnd: (details) {
+                            animationController = AnimationController(
+                                vsync: this,
+                                duration: Duration(milliseconds: 500));
+                            curvedAnimation = CurvedAnimation(
+                                parent: animationController,
+                                curve: Curves.fastOutSlowIn);
+                            animationController.addListener(() {
+                              setState(() {
+                                currentColor =
+                                    colorTween.evaluate(curvedAnimation);
+                              });
+                            });
+
                             if (details.velocity.pixelsPerSecond.dx > 0) {
-                              if (cardIndex > 0) cardIndex--;
+                              if (cardIndex > 0) {
+                                cardIndex--;
+                                colorTween = ColorTween(
+                                    begin: currentColor,
+                                    end: appColors[cardIndex]);
+                              }
                             } else {
-                              if (cardIndex < 2) cardIndex++;
+                              if (cardIndex < 2) {
+                                cardIndex++;
+                                colorTween = ColorTween(
+                                    begin: currentColor,
+                                    end: appColors[cardIndex]);
+                              }
                             }
 
                             setState(() {
@@ -196,6 +223,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                   duration: Duration(milliseconds: 500),
                                   curve: Curves.fastOutSlowIn);
                             });
+
+                            colorTween.animate(curvedAnimation);
+                            animationController.forward();
                           },
                         );
                       }),
