@@ -78,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           children: <Widget>[
             Row(),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 64.0, vertical: 32.0),
+              padding: EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
               child: Container(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               children: <Widget>[
                 Padding(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 64.0, vertical: 16.0),
+                      EdgeInsets.symmetric(horizontal: 32.0, vertical: 12.0),
                   child: Text(
                     'TODAY: ${today.year}/${today.month}/${today.day}',
                     style: TextStyle(color: Colors.white),
@@ -129,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                       itemBuilder: (context, position) {
                         return GestureDetector(
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.only(left: 24.0, top: 12.0, right: 6.0, bottom: 32.0),
                             child: Card(
                               child: Container(
                                 width: 250.0,
@@ -139,7 +139,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                       MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Padding(
-                                      padding: EdgeInsets.all(8.0),
+                                      padding: EdgeInsets.all(12.0),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -147,6 +147,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                           Icon(
                                             cardsList[position].cardIcon,
                                             color: appColors[position],
+                                            size: 36.0,
                                           ),
                                           Icon(
                                             Icons.more_vert,
@@ -156,7 +157,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsets.all(8.0),
+                                      padding: EdgeInsets.all(12.0),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
