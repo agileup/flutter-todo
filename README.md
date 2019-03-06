@@ -1,16 +1,15 @@
 # flutter_todo
 
-A new Flutter project.
+Flutter Practice - TODO Application
 
-## Getting Started
+## progress
 
-This project is a starting point for a Flutter application.
+- [x] main user interface
+- [ ] detail user interface
+- [ ] data management
+- [ ] apply bloc
 
-A few resources to get you started if this is your first Flutter project:
+## reference
 
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+- [Flutter Challenge: TODO App Concept](https://medium.com/@dev.n/flutter-challenge-todo-app-concept-bd36107aa291)
+- UI inspired by [iPhone X - Todo Concept](https://dribbble.com/shots/3812962-iPhone-X-Todo-Concept)
