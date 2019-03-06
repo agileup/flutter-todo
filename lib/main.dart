@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
+
+import 'package:flutter_todo/cardItemModel.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,6 +14,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(),
+      debugShowCheckedModeBanner: true,
     );
   }
 }
@@ -26,14 +30,16 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     Color.fromRGBO(99, 138, 223, 1.0),
     Color.fromRGBO(111, 194, 173, 1.0)
   ];
+  var currentColor = Color.fromRGBO(231, 129, 109, 1.0);
   var cardIndex = 0;
 
-  var currentColor = Color.fromRGBO(231, 129, 109, 1.0);
   var cardsList = [
-    Icons.account_circle,
-    Icons.work,
-    Icons.home,
+    CardItemModel("Personal", Icons.account_circle, 9, 0.83),
+    CardItemModel("Work", Icons.work, 12, 0.24),
+    CardItemModel("Home", Icons.home, 7, 0.32),
   ];
+
+  var today = DateTime.now();
 
   ScrollController scrollController;
 
@@ -85,16 +91,17 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                     Padding(
                       padding: EdgeInsets.fromLTRB(0.0, 16.0, 0.0, 12.0),
                       child: Text(
-                        'Hello, Jane.',
+                        'Hello, MK',
                         style: TextStyle(fontSize: 30.0, color: Colors.white),
                       ),
                     ),
                     Text(
-                      'Looks like feel good.',
+                      'Looks like feel good :)',
                       style: TextStyle(color: Colors.white),
                     ),
                     Text(
-                      'You have 3 tasks to do today',
+                      // TODO: 남은 task 수 계산
+                      'You have ${new Random().nextInt(10)} tasks to do today',
                       style: TextStyle(color: Colors.white),
                     )
                   ],
@@ -108,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                   padding:
                       EdgeInsets.symmetric(horizontal: 64.0, vertical: 16.0),
                   child: Text(
-                    'TODAY ---',
+                    'TODAY: ${today.year}/${today.month}/${today.day}',
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -138,7 +145,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                             MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
                                           Icon(
-                                            cardsList[position],
+                                            cardsList[position].cardIcon,
                                             color: appColors[position],
                                           ),
                                           Icon(
@@ -158,7 +165,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                             padding: EdgeInsets.symmetric(
                                                 horizontal: 8.0, vertical: 4.0),
                                             child: Text(
-                                              '0 Tasks',
+                                              '${cardsList[position].taskRemaining} Tasks',
                                               style:
                                                   TextStyle(color: Colors.grey),
                                             ),
@@ -167,14 +174,15 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                             padding: EdgeInsets.symmetric(
                                                 horizontal: 8.0, vertical: 4.0),
                                             child: Text(
-                                              'title',
+                                              '${cardsList[position].cardTitle}',
                                               style: TextStyle(fontSize: 28.0),
                                             ),
                                           ),
                                           Padding(
                                             padding: EdgeInsets.all(8.0),
                                             child: LinearProgressIndicator(
-                                              value: 0.7,
+                                              value: cardsList[position]
+                                                  .taskCompletion,
                                             ),
                                           )
                                         ],
